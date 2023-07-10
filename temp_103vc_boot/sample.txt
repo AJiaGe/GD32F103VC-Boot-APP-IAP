@@ -1,0 +1,19 @@
+typedef  void (*pFunction)(void);
+
+pFunction Jump_To_Application;
+
+uint32_t jump_address = 0;
+
+
+int main( void )
+{
+	
+	jump_address = *(__IO uint32_t *)(ADDRESS_APPLICATION + 4 );
+	
+	Jump_To_Application = (pFunction)jump_address;
+	
+	__set_MSP(*(__IO uint32_t *)ADDRESS_APPLICATION);
+	
+	Jump_To_Application();
+	
+}
